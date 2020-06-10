@@ -1,0 +1,18 @@
+server:
+  port: 7777
+
+spring:
+  #数据源
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver  #驱动名
+    type: com.zaxxer.hikari.HikariDataSource #使用hikari
+    url: jdbc:mysql://39.105.198.11:3307/plato
+    username: root
+    password:
+
+#mybatis配置
+mybatis:
+  mapper-locations: /mapper/**.xml #扫描映射文件
+  type-aliases-package: com.tphy.entity #起别名
+  configuration:
+    map-underscore-to-camel-case: true #开启驼峰

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tphy.mapper.UnionMapper">
+
+    <!--查询当前数据库名-->
+    <select id="selectDatabase" resultType="string">
+        select database()
+    </select>
+
+    <!--查询当前数据库下所有表名和注释名-->
+    <select id="selectAllTables"  resultType="commonVo">
+        SELECT table_name as xx1,table_comment as xx2
+        FROM information_schema. TABLES
+        WHERE table_schema = (SELECT DATABASE())
+    </select>
+
+    <!--查询指定表下所有字段和注释名-->
+    <select id="selectAllFields"  resultType="commonVo">
+        SELECT column_name as xx1,column_comment as xx2
+        FROM information_schema.`columns`
+        WHERE table_name = #{table}
+        ORDER BY column_name DESC;
+    </select>
+
+    <!--查询表注释和字段注释-->
+    <select id="selectAllComments"  resultType="tableCommentVo">
+        SELECT a.table_name, a.table_comment, b.column_name,b.column_comment
+        FROM information_schema.TABLES a
+        INNER JOIN information_schema.`columns` b
+        WHERE a.table_schema = 'plato'  AND a.table_name = 'hospital'
+        AND b.table_name = 'hospital'
+    </select>
+
+
+    <!--联表查询记录-->
+
+
+</mapper>
